@@ -5,7 +5,7 @@ from torchvision import datasets, transforms
 import wandb
 
 # Initialize W&B
-wandb.init(project="mnist-mlops", mode="disabled")
+wandb.init(project="mnist-mlops", entity="itsmustafamr")
 
 # Define the Logistic Regression model
 class LogisticRegressionModel(nn.Module):
