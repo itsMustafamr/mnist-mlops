@@ -8,4 +8,4 @@ Pillow
 wandb
 requests
 python-multipart
-
+sckit-learn
