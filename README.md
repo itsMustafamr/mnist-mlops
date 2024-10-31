@@ -1,6 +1,7 @@
 # mnist-mlops
 By ***Mohammed Musthafa Rafi***
-Here i will be creating an end-to-end machine learning pipeline using the MNIST dataset.
+
+Here, i will be creating an end-to-end machine learning pipeline using the MNIST dataset.
 
 This project provides a complete end-to-end machine learning pipeline using the MNIST dataset. It demonstrates key MLops principles by incorporating model training with PyTorch, monitoring using Weights & Biases (W&B), deployment with FastAPI, and containerization with Docker. Additionally, Prometheus and Grafana are used to monitor API metrics, making the solution production-ready and easily scalable.
 
