@@ -5,6 +5,8 @@ Here, i will be creating an end-to-end machine learning pipeline using the MNIST
 
 This project provides a complete end-to-end machine learning pipeline using the MNIST dataset. It demonstrates key MLops principles by incorporating model training with PyTorch, monitoring using Weights & Biases (W&B), deployment with FastAPI, and containerization with Docker. Additionally, Prometheus and Grafana are used to monitor API metrics, making the solution production-ready and easily scalable.
 
+So, just as a note: Most of the time, port 8000 was occupied, so I tended to use port forwarding to 8001.
+
 ### Key Features:
 - **Model Training**: A Logistic Regression model trained on the MNIST dataset using PyTorch.
 - **Logging**: Training metrics logged with [Weights & Biases](https://wandb.ai/).
