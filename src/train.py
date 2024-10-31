@@ -5,7 +5,7 @@ from torchvision import datasets, transforms
 import wandb
 
 # Initialize W&B
-wandb.init(project="mnist-mlops", entity="itsmustafamr")
+wandb.init(project="mnist-mlops", entity="your_wandb_username")
 
 # Define the Logistic Regression model
 class LogisticRegressionModel(nn.Module):
@@ -29,11 +29,14 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
 train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=64, shuffle=True)
+val_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+val_loader = torch.utils.data.DataLoader(dataset=val_dataset, batch_size=64, shuffle=False)
 
 # Training loop
 num_epochs = 5
 for epoch in range(num_epochs):
     model.train()
+    total_train_loss = 0
     for batch_idx, (images, labels) in enumerate(train_loader):
         images = images.view(-1, 28*28)  # Flatten images
 
@@ -46,11 +49,38 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
+        # Accumulate training loss
+        total_train_loss += loss.item()
+
         # Log the loss to W&B
-        wandb.log({"epoch": epoch + 1, "loss": loss.item()})
+        wandb.log({"training_loss": loss.item(), "epoch": epoch + 1})
 
         if (batch_idx + 1) % 100 == 0:
             print(f'Epoch [{epoch + 1}/{num_epochs}], Step [{batch_idx + 1}/{len(train_loader)}], Loss: {loss.item():.4f}')
 
+    # Log average training loss for the epoch
+    avg_train_loss = total_train_loss / len(train_loader)
+    wandb.log({"avg_train_loss": avg_train_loss, "epoch": epoch + 1})
+
+    # Validation
+    model.eval()
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for images, labels in val_loader:
+            images = images.view(-1, 28*28)  # Flatten images
+            outputs = model(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    # Calculate and log accuracy
+    accuracy = 100 * correct / total
+    wandb.log({"validation_accuracy": accuracy, "epoch": epoch + 1})
+    print(f'Epoch [{epoch + 1}/{num_epochs}], Validation Accuracy: {accuracy:.2f}%')
+
 # Save the trained model
 torch.save(model.state_dict(), 'mnist_logistic_regression.pth')
+
+# Finish the W&B session
+wandb.finish()
