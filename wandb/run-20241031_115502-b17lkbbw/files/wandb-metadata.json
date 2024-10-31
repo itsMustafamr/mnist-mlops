@@ -1,0 +1,45 @@
+{
+  "os": "macOS-10.16-x86_64-i386-64bit",
+  "python": "3.9.20",
+  "startedAt": "2024-10-31T16:55:02.440172Z",
+  "args": [
+    "src.deploy:app",
+    "--reload",
+    "--host",
+    "0.0.0.0",
+    "--port",
+    "8000"
+  ],
+  "program": "/opt/miniconda3/envs/mlops/bin/uvicorn",
+  "git": {
+    "remote": "https://github.com/itsMustafamr/mnist-mlops.git",
+    "commit": "69241fbda2ce72b62d5ed793dfa63721ac00b281"
+  },
+  "email": "mr.mohdmustafa007@gmail.com",
+  "root": "/Users/mohd7/Library/CloudStorage/Box-Box/Sem 3/MLops/mnist-mlops",
+  "host": "mac-air-135",
+  "username": "mohd7",
+  "executable": "/opt/miniconda3/envs/mlops/bin/python",
+  "cpu_count": 8,
+  "cpu_count_logical": 8,
+  "disk": {
+    "/": {
+      "total": "245107195904",
+      "used": "212488224768"
+    }
+  },
+  "memory": {
+    "total": "17179869184"
+  },
+  "cpu": {
+    "count": 8,
+    "countLogical": 8
+  },
+  "apple": {
+    "name": "Unknown",
+    "ecpuCores": 4,
+    "pcpuCores": 4,
+    "gpuCores": 8,
+    "memoryGb": 16
+  }
+}
